@@ -230,6 +230,27 @@ footer a:hover{color:var(--lamp)}
 .related a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--panel)}
 .related a:hover{border-color:var(--lamp)}
 .legal .postlist,.legal .related ul{padding-left:0}
+.banner{margin:22px 0 6px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:1200/574;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.legal article strong{color:var(--ink);background:linear-gradient(transparent 60%,#f5d18c3d 60%);padding:0 2px;border-radius:2px}
+.legal article strong.bd{color:var(--lamp);background:none;padding:0}
+.legal article .answer{position:relative;border:1px solid var(--lamp);background:linear-gradient(180deg,#f5d18c17,var(--panel));padding:18px 18px 18px 54px;font-size:17px}
+.legal article .answer::before{content:"💡";position:absolute;left:18px;top:17px;font-size:22px}
+.legal article h2{display:flex;gap:12px;align-items:center}
+.legal article h2::before{content:"";flex:none;width:6px;height:1.15em;border-radius:3px;background:var(--lamp)}
+.legal article>ol{list-style:none;counter-reset:step;padding-left:0;display:grid;gap:12px}
+.legal article>ol>li{counter-increment:step;position:relative;padding-left:42px}
+.legal article>ol>li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--lamp);color:#1a1405;font-weight:700;font-size:14px;display:grid;place-items:center}
+.legal article th{background:#f5d18c1c;color:var(--lamp)}
+.legal article tbody tr:nth-child(even) td{background:#ffffff06}
+.dl-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:36px 0;padding:18px 20px;border-radius:18px;border:1px solid #526b86;background:linear-gradient(135deg,#233b55,#142337)}
+.dl-card svg{width:56px;height:56px;border-radius:14px;flex:none}
+.dl-card div{flex:1;min-width:180px}
+.dl-card b{display:block;font-family:var(--display);font-size:19px}
+.dl-card span{color:var(--muted);font-size:14px}
+.dl-card .btn{min-height:44px}
 .postlist{list-style:none;padding:0;display:grid;gap:14px;margin-top:28px}
 .postlist a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
 .postlist a:hover{border-color:var(--lamp)}

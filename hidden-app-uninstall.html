@@ -230,6 +230,27 @@ footer a:hover{color:var(--lamp)}
 .related a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--panel)}
 .related a:hover{border-color:var(--lamp)}
 .legal .postlist,.legal .related ul{padding-left:0}
+.banner{margin:22px 0 6px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:1200/574;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.legal article strong{color:var(--ink);background:linear-gradient(transparent 60%,#f5d18c3d 60%);padding:0 2px;border-radius:2px}
+.legal article strong.bd{color:var(--lamp);background:none;padding:0}
+.legal article .answer{position:relative;border:1px solid var(--lamp);background:linear-gradient(180deg,#f5d18c17,var(--panel));padding:18px 18px 18px 54px;font-size:17px}
+.legal article .answer::before{content:"💡";position:absolute;left:18px;top:17px;font-size:22px}
+.legal article h2{display:flex;gap:12px;align-items:center}
+.legal article h2::before{content:"";flex:none;width:6px;height:1.15em;border-radius:3px;background:var(--lamp)}
+.legal article>ol{list-style:none;counter-reset:step;padding-left:0;display:grid;gap:12px}
+.legal article>ol>li{counter-increment:step;position:relative;padding-left:42px}
+.legal article>ol>li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--lamp);color:#1a1405;font-weight:700;font-size:14px;display:grid;place-items:center}
+.legal article th{background:#f5d18c1c;color:var(--lamp)}
+.legal article tbody tr:nth-child(even) td{background:#ffffff06}
+.dl-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:36px 0;padding:18px 20px;border-radius:18px;border:1px solid #526b86;background:linear-gradient(135deg,#233b55,#142337)}
+.dl-card svg{width:56px;height:56px;border-radius:14px;flex:none}
+.dl-card div{flex:1;min-width:180px}
+.dl-card b{display:block;font-family:var(--display);font-size:19px}
+.dl-card span{color:var(--muted);font-size:14px}
+.dl-card .btn{min-height:44px}
 .postlist{list-style:none;padding:0;display:grid;gap:14px;margin-top:28px}
 .postlist a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
 .postlist a:hover{border-color:var(--lamp)}
@@ -261,7 +282,8 @@ footer a:hover{color:var(--lamp)}
 <main class="legal"><article class="wrap">
 <p class="crumb"><a href="index.html">별담</a> › <a href="blog.html">블로그</a></p>
 <h1>사진 숨김 앱 지우면 사진도 사라질까? 삭제 전에 꼭 해야 할 3가지</h1>
-<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time></p>
+<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time> · 읽는 시간 약 4분</p>
+<figure class="banner"><img src="village-banner.webp" alt="별담의 밤마을 그림" width="1200" height="574" loading="eager"></figure>
 <p class="answer"><strong>결론부터 말하면:</strong> 대부분 <strong>사라집니다.</strong> 숨김 앱은 사진을 앱 안쪽 저장공간에 보관하는데, 안드로이드는 앱을 지우면 그 공간도 함께 지웁니다. 살릴 수 있는 경우는 <strong>앱이 따로 백업을 해 두었을 때뿐</strong>입니다. 그러니 앱을 지우기 전에 반드시 사진을 밖으로 꺼내세요.</p>
 <h2>서론: ‘앱만 지웠는데’ 사진이 없어졌다</h2>
 <p>폰 용량을 정리하다가, 또는 다른 앱으로 바꾸려고 숨김 앱을 지웠다가 사진을 잃는 일이 자주 생깁니다. 갤러리 휴지통에도 없고, 구글 포토에도 없습니다.</p>
@@ -292,13 +314,14 @@ footer a:hover{color:var(--lamp)}
 <td>백업본은 새 기기에서 로그인해 복구</td>
 </tr>
 <tr>
-<td>별담 (출시 예정)</td>
+<td><strong class="bd">별담</strong> (출시 예정)</td>
 <td>백업 없음 (폰 안에만 저장)</td>
 <td>모두 삭제되며 복구 불가</td>
 </tr>
 </tbody>
 </table></div>
 <p>표에서 보듯, <strong>백업을 직접 켜지 않았다면 거의 모든 앱에서 사진이 사라집니다.</strong> Keepsafe 고객센터도 백업이 없으면 “사진과 영상이 영원히 사라진다”고 안내합니다.</p>
+<aside class="dl-card" aria-label="별담 앱"><svg viewBox="0 0 108 108" aria-hidden="true"><path fill="#091322" d="M0,0h108v108h-108z"/><path fill="#F5D18C" d="M67,22A32,32 0,1 0,85 71A31,31 0,0 1,67 22"/><path fill="#E7ECF3" d="M77,27l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3zM54,23l1.5,3.5 3.5,1.5 -3.5,1.5 -1.5,3.5 -1.5,-3.5 -3.5,-1.5 3.5,-1.5z"/></svg><div><b>별담 · 그림 속 비밀방</b><span>그림 위치와 패턴으로 여는 Android 사진 보관함. 사진은 폰 안에만 암호화해서 보관해요.</span></div><a class="btn gold" href="index.html#download">Google Play 출시 예정</a></aside>
 <h2>본론 2: 앱을 지우기 전에 해야 할 3가지</h2>
 <ol>
 <li><strong>사진을 밖으로 꺼내기</strong><ul>
@@ -327,14 +350,14 @@ footer a:hover{color:var(--lamp)}
 <li>잠긴 폴더 백업을 켜면 다른 기기에서도 볼 수 있습니다.</li>
 </ul>
 </li>
-<li><strong>사진이 폰 밖으로 절대 나가지 않길 원한다면: 별담 (출시 예정)</strong><ul>
+<li><strong>사진이 폰 밖으로 절대 나가지 않길 원한다면: </strong>별담<strong> (출시 예정)</strong><ul>
 <li>서버도 클라우드도 없고, 폰 안에만 암호화해 보관합니다.</li>
-<li>그만큼 앱을 지우거나 폰을 바꾸기 전에는 ‘폰으로 복원’으로 꺼내 두어야 합니다. 별담은 이 점을 앱 안내와 자주 묻는 질문에 분명히 적어 두었습니다.</li>
+<li>그만큼 앱을 지우거나 폰을 바꾸기 전에는 ‘폰으로 복원’으로 꺼내 두어야 합니다. <strong class="bd">별담</strong>은 이 점을 앱 안내와 자주 묻는 질문에 분명히 적어 두었습니다.</li>
 </ul>
 </li>
 </ol>
 <blockquote>
-<p>알림: 별담은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
+<p>알림: <strong class="bd">별담</strong>은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
 </blockquote>
 <h2>결론</h2>
 <p>‘백업이 없는 숨김 앱을 지우면 사진도 사라진다’가 기본 규칙입니다. 보안이 강한 앱일수록 개발사도 대신 열어 줄 수 없으니 더 조심해야 합니다. 앱을 지우기 전에는 <strong>꺼내기 → 백업 확인 → 구독 해지</strong> 순서를 기억하세요. 5분이면 끝나는 일이 수백 장의 사진을 지켜 줍니다.</p>

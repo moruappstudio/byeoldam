@@ -230,6 +230,27 @@ footer a:hover{color:var(--lamp)}
 .related a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--panel)}
 .related a:hover{border-color:var(--lamp)}
 .legal .postlist,.legal .related ul{padding-left:0}
+.banner{margin:22px 0 6px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:1200/574;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.legal article strong{color:var(--ink);background:linear-gradient(transparent 60%,#f5d18c3d 60%);padding:0 2px;border-radius:2px}
+.legal article strong.bd{color:var(--lamp);background:none;padding:0}
+.legal article .answer{position:relative;border:1px solid var(--lamp);background:linear-gradient(180deg,#f5d18c17,var(--panel));padding:18px 18px 18px 54px;font-size:17px}
+.legal article .answer::before{content:"💡";position:absolute;left:18px;top:17px;font-size:22px}
+.legal article h2{display:flex;gap:12px;align-items:center}
+.legal article h2::before{content:"";flex:none;width:6px;height:1.15em;border-radius:3px;background:var(--lamp)}
+.legal article>ol{list-style:none;counter-reset:step;padding-left:0;display:grid;gap:12px}
+.legal article>ol>li{counter-increment:step;position:relative;padding-left:42px}
+.legal article>ol>li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--lamp);color:#1a1405;font-weight:700;font-size:14px;display:grid;place-items:center}
+.legal article th{background:#f5d18c1c;color:var(--lamp)}
+.legal article tbody tr:nth-child(even) td{background:#ffffff06}
+.dl-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:36px 0;padding:18px 20px;border-radius:18px;border:1px solid #526b86;background:linear-gradient(135deg,#233b55,#142337)}
+.dl-card svg{width:56px;height:56px;border-radius:14px;flex:none}
+.dl-card div{flex:1;min-width:180px}
+.dl-card b{display:block;font-family:var(--display);font-size:19px}
+.dl-card span{color:var(--muted);font-size:14px}
+.dl-card .btn{min-height:44px}
 .postlist{list-style:none;padding:0;display:grid;gap:14px;margin-top:28px}
 .postlist a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
 .postlist a:hover{border-color:var(--lamp)}
@@ -261,7 +282,8 @@ footer a:hover{color:var(--lamp)}
 <main class="legal"><article class="wrap">
 <p class="crumb"><a href="index.html">별담</a> › <a href="blog.html">블로그</a></p>
 <h1>사진 잠금 앱, 진짜 암호화될까? ‘숨김’과 ‘암호화’ 구별하는 3가지 방법</h1>
-<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time></p>
+<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time> · 읽는 시간 약 4분</p>
+<figure class="banner"><img src="village-banner.webp" alt="별담의 밤마을 그림" width="1200" height="574" loading="eager"></figure>
 <p class="answer"><strong>결론부터 말하면:</strong> 사진 잠금 앱이 진짜 암호화하는지는 <strong>① 앱 설명에 암호화 방식이 구체적으로 적혀 있는지, ② 파일 관리자에서 사진이 그대로 열리는지, ③ 비밀번호를 잊었을 때 어떻게 복구되는지</strong> 세 가지로 확인할 수 있습니다. ‘잠금’이나 ‘숨김’이라는 말만 있고 암호화 방식이 없다면, 갤러리에서만 안 보이게 해 둔 것일 수 있습니다.</p>
 <h2>서론: 잠금 앱인데 왜 불안할까</h2>
 <p>Play 스토어에서 ‘사진 숨기기’를 검색하면 수많은 앱이 나옵니다. 대부분 비밀번호 화면이 있고 ‘안전하다’고 설명합니다. 하지만 비밀번호 화면이 있다고 파일까지 암호화되는 것은 아닙니다. 문에 자물쇠를 달았어도 창문이 열려 있을 수 있는 것과 같습니다.</p>
@@ -292,6 +314,7 @@ footer a:hover{color:var(--lamp)}
 </tr>
 </tbody>
 </table></div>
+<aside class="dl-card" aria-label="별담 앱"><svg viewBox="0 0 108 108" aria-hidden="true"><path fill="#091322" d="M0,0h108v108h-108z"/><path fill="#F5D18C" d="M67,22A32,32 0,1 0,85 71A31,31 0,0 1,67 22"/><path fill="#E7ECF3" d="M77,27l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3zM54,23l1.5,3.5 3.5,1.5 -3.5,1.5 -1.5,3.5 -1.5,-3.5 -3.5,-1.5 3.5,-1.5z"/></svg><div><b>별담 · 그림 속 비밀방</b><span>그림 위치와 패턴으로 여는 Android 사진 보관함. 사진은 폰 안에만 암호화해서 보관해요.</span></div><a class="btn gold" href="index.html#download">Google Play 출시 예정</a></aside>
 <h2>본론 2: 진짜 암호화인지 확인하는 3가지 방법</h2>
 <ol>
 <li><strong>앱 설명과 개인정보처리방침 읽기</strong><ul>
@@ -333,15 +356,15 @@ footer a:hover{color:var(--lamp)}
 <td>삼성 계정으로 재설정 가능 (설정에 따라 다름)</td>
 </tr>
 <tr>
-<td>별담 (출시 예정)</td>
+<td><strong class="bd">별담</strong> (출시 예정)</td>
 <td>파일을 64KB 조각마다 AES-256-GCM으로 암호화하고, 파일 이름·폴더 이름까지 암호화. 열쇠는 그림 위치와 패턴에서 PBKDF2(60만 회)로 만듦</td>
 <td>아무도 열 수 없음 (개발자도 불가)</td>
 </tr>
 </tbody>
 </table></div>
-<p>별담은 열쇠를 어디에도 저장하지 않고, 서버로 보내지도 않습니다. 그래서 패턴을 잊으면 복구할 수 없지만, 폰을 가진 다른 사람이나 개발사도 내용을 볼 수 없습니다. 다만 외부 보안 감사는 아직 받지 않았다는 점도 함께 밝힙니다.</p>
+<p><strong class="bd">별담</strong>은 열쇠를 어디에도 저장하지 않고, 서버로 보내지도 않습니다. 그래서 패턴을 잊으면 복구할 수 없지만, 폰을 가진 다른 사람이나 개발사도 내용을 볼 수 없습니다. 다만 외부 보안 감사는 아직 받지 않았다는 점도 함께 밝힙니다.</p>
 <blockquote>
-<p>알림: 별담은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
+<p>알림: <strong class="bd">별담</strong>은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
 </blockquote>
 <h2>결론</h2>
 <p>사진 잠금 앱을 고를 때는 ‘비밀번호 화면이 있다’가 아니라 <strong>‘파일 자체가 암호화되고, 그 열쇠를 누가 갖고 있는가’</strong>를 보세요. 암호화 방식을 구체적으로 밝히는지, 파일 관리자에서 사진이 열리는지, 복구는 어떻게 되는지. 이 세 가지만 확인해도 ‘숨기기만 하는 앱’은 대부분 걸러낼 수 있습니다.</p>

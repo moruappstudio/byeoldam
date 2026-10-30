@@ -230,6 +230,27 @@ footer a:hover{color:var(--lamp)}
 .related a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--panel)}
 .related a:hover{border-color:var(--lamp)}
 .legal .postlist,.legal .related ul{padding-left:0}
+.banner{margin:22px 0 6px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:1200/574;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.legal article strong{color:var(--ink);background:linear-gradient(transparent 60%,#f5d18c3d 60%);padding:0 2px;border-radius:2px}
+.legal article strong.bd{color:var(--lamp);background:none;padding:0}
+.legal article .answer{position:relative;border:1px solid var(--lamp);background:linear-gradient(180deg,#f5d18c17,var(--panel));padding:18px 18px 18px 54px;font-size:17px}
+.legal article .answer::before{content:"💡";position:absolute;left:18px;top:17px;font-size:22px}
+.legal article h2{display:flex;gap:12px;align-items:center}
+.legal article h2::before{content:"";flex:none;width:6px;height:1.15em;border-radius:3px;background:var(--lamp)}
+.legal article>ol{list-style:none;counter-reset:step;padding-left:0;display:grid;gap:12px}
+.legal article>ol>li{counter-increment:step;position:relative;padding-left:42px}
+.legal article>ol>li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--lamp);color:#1a1405;font-weight:700;font-size:14px;display:grid;place-items:center}
+.legal article th{background:#f5d18c1c;color:var(--lamp)}
+.legal article tbody tr:nth-child(even) td{background:#ffffff06}
+.dl-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:36px 0;padding:18px 20px;border-radius:18px;border:1px solid #526b86;background:linear-gradient(135deg,#233b55,#142337)}
+.dl-card svg{width:56px;height:56px;border-radius:14px;flex:none}
+.dl-card div{flex:1;min-width:180px}
+.dl-card b{display:block;font-family:var(--display);font-size:19px}
+.dl-card span{color:var(--muted);font-size:14px}
+.dl-card .btn{min-height:44px}
 .postlist{list-style:none;padding:0;display:grid;gap:14px;margin-top:28px}
 .postlist a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
 .postlist a:hover{border-color:var(--lamp)}
@@ -261,7 +282,8 @@ footer a:hover{color:var(--lamp)}
 <main class="legal"><article class="wrap">
 <p class="crumb"><a href="index.html">별담</a> › <a href="blog.html">블로그</a></p>
 <h1>갤러리 사진 완전 삭제하는 법: 휴지통·구글 포토·클라우드까지 지우는 순서</h1>
-<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time></p>
+<p class="post-meta">모루앱스 · <time datetime="2026-10-31">2026년 10월 31일</time> · 읽는 시간 약 4분</p>
+<figure class="banner"><img src="village-banner.webp" alt="별담의 밤마을 그림" width="1200" height="574" loading="eager"></figure>
 <p class="answer"><strong>결론부터 말하면:</strong> 사진을 완전히 지우려면 <strong>① 갤러리에서 삭제 → ② 갤러리 휴지통 비우기 → ③ 구글 포토 등 클라우드에서 삭제 → ④ 클라우드 휴지통 비우기</strong>, 이 4단계를 모두 해야 합니다. 갤러리에서 한 번 지우면 휴지통에 30일간 남고, 구글 포토에 백업된 사본은 그대로 남아 있을 수 있습니다.</p>
 <h2>서론: 분명히 지웠는데 왜 아직 남아 있을까</h2>
 <p>사진을 지웠는데 구글 포토에 그대로 있거나, 아이클라우드에서 안 지워진다는 질문이 정말 많습니다. 삼성 커뮤니티에는 ‘사진 완전히 삭제하기’라는 초보자용 팁 글까지 따로 올라와 있을 정도입니다.</p>
@@ -296,6 +318,7 @@ footer a:hover{color:var(--lamp)}
 </ul>
 </li>
 </ol>
+<aside class="dl-card" aria-label="별담 앱"><svg viewBox="0 0 108 108" aria-hidden="true"><path fill="#091322" d="M0,0h108v108h-108z"/><path fill="#F5D18C" d="M67,22A32,32 0,1 0,85 71A31,31 0,0 1,67 22"/><path fill="#E7ECF3" d="M77,27l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3zM54,23l1.5,3.5 3.5,1.5 -3.5,1.5 -1.5,3.5 -1.5,-3.5 -3.5,-1.5 3.5,-1.5z"/></svg><div><b>별담 · 그림 속 비밀방</b><span>그림 위치와 패턴으로 여는 Android 사진 보관함. 사진은 폰 안에만 암호화해서 보관해요.</span></div><a class="btn gold" href="index.html#download">Google Play 출시 예정</a></aside>
 <h2>본론 2: 한눈에 보는 휴지통 보관 기간</h2>
 <div class="tablebox"><table>
 <thead>
@@ -340,7 +363,7 @@ footer a:hover{color:var(--lamp)}
 </li>
 </ol>
 <blockquote>
-<p>알림: 별담은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
+<p>알림: <strong class="bd">별담</strong>은 이 글을 쓴 모루앱스가 만든 앱입니다.</p>
 </blockquote>
 <h2>결론</h2>
 <p>사진 한 장을 완전히 지우려면 <strong>갤러리, 갤러리 휴지통, 클라우드, 클라우드 휴지통</strong> 네 곳을 모두 확인해야 합니다. 하나라도 빠지면 최대 30일 동안 어딘가에 남아 있습니다. 메신저로 보낸 사진은 받는 사람 폰에도 남는다는 점까지 기억해 두세요. 또 일반적인 삭제는 저장장치의 흔적까지 완벽하게 없애는 ‘포렌식 소거’와는 다릅니다.</p>
