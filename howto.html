@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="별담 사용 방법: 그림 위치와 패턴으로 입구 정하기, 비밀방 들어가기, 사진·동영상·파일 가져오기, 복사와 이동, 파일 옮기기, 폰으로 복원, 비밀방 추가까지 화면과 함께 정리했어요.">
+<title>별담 사용 방법 · 입구 정하기부터 파일 옮기기까지</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: night-village single dark world — sticky bar, hero with live lock screen, alternating feature rows (copy | phone), plan cards, legal views on #privacy / #terms */
+:root{
+  --night:#091322;      /* app background */
+  --deep:#060e1a;       /* bands, footer */
+  --panel:#13233a;      /* cards */
+  --line:#2a3f58;       /* hairlines */
+  --ink:#e7ecf3;        /* text */
+  --muted:#9bb0c6;      /* secondary text */
+  --lamp:#f5d18c;       /* accent: lamplight gold */
+  --lamp-soft:#f5d18c22;
+  --sky:#8dcae8;        /* target hint blue */
+  --display:"Gowun Batang","Nanum Myeongjo","AppleMyungjo",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--night);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--deep)}
+a{color:var(--lamp)}
+:focus-visible{outline:2px solid var(--lamp);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.3;text-wrap:balance;margin:0}
+p{margin:0}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--deep) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:20px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:var(--display);font-size:22px;font-weight:700}
+.brand svg{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;font-size:15px;padding:6px 10px;border-radius:8px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+.play{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--lamp);color:var(--lamp);border-radius:999px;padding:7px 16px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+@media (max-width:760px){.nav{display:none}.bar .play{margin-left:auto}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 78% 30%,#f5d18c14,transparent 70%),radial-gradient(1px 1px at 12% 22%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 33% 12%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 55% 30%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 8% 60%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 46% 70%,#fff4 50%,transparent 51%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:72px 64px}
+.eyebrow{font-size:13px;letter-spacing:.14em;color:var(--lamp);font-weight:600;margin-bottom:18px}
+.hero h1{font-size:clamp(34px,5.2vw,58px);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--lamp)}
+.lead{color:var(--muted);font-size:18px;max-width:34em;margin-top:22px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 22px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #526b86;color:var(--ink);background:linear-gradient(#354d68,#1b2c41);box-shadow:0 4px 0 #080f1b}
+.btn:hover{border-color:#66809c}
+.btn.gold{background:var(--lamp);color:#1a1405;border-color:var(--lamp);box-shadow:0 4px 0 #9c7d40}
+.btn small{font-weight:500;opacity:.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;padding:0;list-style:none}
+.chips a{display:block;font-size:14px;color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 14px}
+.chips a:hover{border-color:var(--lamp)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:48px}.hero .phone{margin:8px auto 0}}
+
+/* phone mockup */
+.phone{width:min(290px,100%);margin:0 auto;padding:10px;border-radius:42px;background:linear-gradient(145deg,#2b3a4d,#0e1724);box-shadow:0 30px 80px #0009,inset 0 0 0 1px #3e5772}
+.screen{position:relative;container-type:inline-size;aspect-ratio:941/1672;border-radius:32px;overflow:hidden;background:var(--night)}
+.screen .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ov{position:absolute;inset:0;width:100%;height:100%}
+.pat{stroke-dasharray:3000;stroke-dashoffset:0;animation:draw 2.4s ease-out .4s both}
+@keyframes draw{from{stroke-dashoffset:3000}to{stroke-dashoffset:0}}
+.glow{animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.caption{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+.setup-tip{position:absolute;left:0;right:0;bottom:3cqw;padding:0 4cqw;text-align:center;color:#fff;font-size:3.6cqw;line-height:1.45}
+
+/* in-app screens (rebuilt from the app's layout) */
+.app{position:absolute;inset:0;display:flex;flex-direction:column;padding:6cqw 5.5cqw 4cqw;background:var(--night);font-size:4cqw;line-height:1.4}
+.app h4{font-family:var(--body);font-size:8.5cqw;font-weight:700;margin:0}
+.app .sub{color:var(--muted);font-size:3.4cqw;margin-top:1cqw}
+.app .meta{color:var(--muted);font-size:3.6cqw;margin-top:3cqw}
+.app .newf{align-self:flex-end;margin:3cqw 0 3cqw;font-size:3.8cqw;padding:2.4cqw 4cqw;border-radius:4cqw;background:linear-gradient(#354d68,#1b2c41);border:1px solid #526b86}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+.fcard{border-radius:5cqw;padding:4.5cqw 4cqw;background:linear-gradient(#233b55,#142337);border:1px solid #3e5772;min-height:34cqw}
+.fcard svg{width:10cqw;height:10cqw;display:block}
+.fcard b{display:block;font-size:4.8cqw;margin-top:2cqw}
+.fcard span{color:var(--muted);font-size:3.4cqw}
+.foot{display:grid;grid-template-columns:1fr 1fr;gap:2cqw;margin-top:auto}
+.foot i{font-style:normal;text-align:center;font-size:3.6cqw;padding:3cqw 0;border-radius:4cqw;background:linear-gradient(#354d68,#1b2c41);border:1px solid #526b86}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:2cqw;margin-top:3cqw}
+.tools i{font-style:normal;font-size:3.4cqw;padding:2cqw 3cqw;border-bottom:1px solid var(--line);color:var(--ink)}
+.thumbs{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw;margin-top:3cqw}
+.thumb{border-radius:3cqw;background:#162639;padding:2.4cqw}
+.thumb .ph{aspect-ratio:1/1;border-radius:2cqw;background-size:cover;background-position:center}
+.thumb b{display:block;font-weight:400;font-size:3.2cqw;margin-top:1.6cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb span{color:var(--muted);font-size:2.9cqw}
+.p1{background:linear-gradient(180deg,#f3a35d 0%,#e3735a 38%,#5b3a6b 62%,#1b2340 100%)}
+.p2{background:linear-gradient(180deg,#9fd3f0 0%,#6db4dc 45%,#2e7ab0 46%,#1d5583 100%)}
+.p3{background:radial-gradient(40% 30% at 70% 30%,#fff7c9,transparent 60%),linear-gradient(180deg,#3c6e4a,#1f4a33)}
+.dim{position:absolute;inset:0;background:#000a}
+.dialog{position:absolute;left:5cqw;right:5cqw;top:22%;border-radius:4cqw;background:#162639;padding:6cqw 5cqw;box-shadow:0 10px 40px #000a}
+.dialog h5{font-size:5.2cqw;margin:0 0 3cqw}
+.dialog p{font-size:3.7cqw;color:var(--ink);margin-bottom:4cqw}
+.dialog i{display:block;font-style:normal;text-align:center;font-size:3.7cqw;padding:3.4cqw 2cqw;border-radius:4cqw;margin-bottom:2.4cqw;background:linear-gradient(#354d68,#1b2c41);border:1px solid #526b86}
+.dialog i.on{border-color:var(--lamp);box-shadow:0 0 0 1px var(--lamp)}
+.dialog small{display:block;color:var(--muted);font-size:3.1cqw;line-height:1.45;margin-top:3cqw}
+.dialog .cancel{text-align:right;color:var(--lamp);font-size:3.6cqw;margin-top:3cqw}
+
+/* feature rows */
+.feature{border-bottom:1px solid var(--line)}
+.feature .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding-block:88px}
+.feature:nth-of-type(even) .copy{order:2}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--lamp);font-size:14px;font-weight:600;margin-bottom:14px}
+.kicker::before{content:"";width:22px;height:1px;background:var(--lamp)}
+.feature h2{font-size:clamp(28px,3.4vw,40px)}
+.feature .copy p{color:var(--muted);margin-top:18px;max-width:30em}
+.points{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.points li{display:grid;grid-template-columns:22px 1fr;gap:10px;color:var(--ink)}
+.points li::before{content:"";width:8px;height:8px;margin:10px 0 0 6px;border-radius:50%;background:var(--lamp);box-shadow:0 0 10px var(--lamp)}
+@media (max-width:860px){.feature .wrap{grid-template-columns:1fr;gap:36px;padding-block:64px}.feature:nth-of-type(even) .copy{order:0}}
+
+/* security spec */
+.spec{border-bottom:1px solid var(--line);background:var(--deep)}
+.spec .wrap{padding-block:88px}
+.spec h2{font-size:clamp(28px,3.4vw,40px);max-width:16em}
+.spec .intro{color:var(--muted);margin-top:16px;max-width:36em}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:40px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.specs div{background:var(--deep);padding:26px 24px;min-width:0}
+.specs dt{font-family:var(--display);font-size:22px;color:var(--lamp)}
+.specs dd{margin:8px 0 0;color:var(--muted);font-size:15px}
+@media (max-width:860px){.specs{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.specs{grid-template-columns:1fr}}
+
+/* pricing */
+.pricing .wrap{padding-block:88px}
+.center{text-align:center}
+.pricing h2{font-size:clamp(28px,3.4vw,40px)}
+.pricing .intro{color:var(--muted);margin:14px auto 0;max-width:34em}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.plan{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;padding:28px 22px;background:var(--panel);min-width:0}
+.plan.best{border-color:var(--lamp);background:linear-gradient(180deg,#f5d18c12,var(--panel) 40%)}
+.badge{position:absolute;top:-12px;left:22px;background:var(--lamp);color:#1a1405;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px}
+.plan h3{font-family:var(--body);font-size:16px;font-weight:600;color:var(--muted)}
+.price{font-family:var(--display);font-size:34px;margin-top:10px;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:14px;color:var(--muted);font-weight:400}
+.per{color:var(--lamp);font-size:14px;margin-top:4px;min-height:1.7em}
+.plan ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:8px;font-size:15px}
+.plan li{padding-left:22px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--lamp)}
+.plan li.no::before{content:"·";color:var(--muted)}
+.plan li.no{color:var(--muted)}
+.note{margin:32px auto 0;max-width:46em;border:1px dashed var(--line);border-radius:16px;padding:20px 22px;color:var(--muted);font-size:15px}
+.note b{color:var(--ink)}
+@media (max-width:960px){.plans{grid-template-columns:1fr 1fr;row-gap:28px}}
+@media (max-width:520px){.plans{grid-template-columns:1fr}}
+
+/* faq */
+.faq{border-top:1px solid var(--line)}
+.faq .wrap{padding-block:88px;max-width:820px}
+.faq h2{font-size:clamp(28px,3.4vw,40px);margin-bottom:28px}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:20px 36px 20px 0;font-weight:600;font-size:17px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:16px;font-size:24px;color:var(--lamp);font-weight:400}
+details[open] summary::after{content:"−"}
+details p{color:var(--muted);padding:0 0 22px}
+
+/* closing */
+.closing{position:relative;overflow:hidden;background:var(--deep);border-top:1px solid var(--line)}
+.closing .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.28}
+.closing .wrap{position:relative;padding-block:96px;text-align:center}
+.closing h2{font-size:clamp(28px,4vw,46px)}
+.closing p{color:var(--muted);margin-top:14px}
+.closing .cta{justify-content:center}
+.mail{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px;color:var(--muted);font-size:15px}
+.mail code{font-family:var(--body);color:var(--ink);user-select:all;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.copybtn{font:inherit;font-size:13px;color:var(--lamp);background:none;border:1px solid var(--lamp);border-radius:999px;padding:3px 12px;cursor:pointer}
+
+/* footer */
+footer{background:var(--deep);border-top:1px solid var(--line)}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-block:48px 36px;font-size:14px;color:var(--muted)}
+footer h6{font-size:13px;letter-spacing:.1em;color:var(--ink);margin:0 0 12px;font-weight:600}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--lamp)}
+.copyright{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;font-size:13px}
+@media (max-width:640px){footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}}
+
+/* legal views */
+.legal .wrap{max-width:780px;padding-block:56px 88px}
+.back{display:inline-block;margin-bottom:28px;font-size:15px;text-decoration:none}
+.legal h1{font-size:clamp(28px,4vw,40px)}
+.legal .eff{color:var(--muted);margin-top:10px;font-size:15px}
+.legal h2{font-size:21px;margin:40px 0 12px}
+.legal p,.legal li{color:#c9d5e2}
+.legal ol,.legal ul{padding-left:1.3em;display:grid;gap:6px;margin:10px 0}
+.tablebox{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+.legal table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+.legal th,.legal td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.legal th{background:var(--panel);color:var(--ink);font-weight:600}
+.legal tr:last-child td{border-bottom:0}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="canonical" href="https://moruappstudio.github.io/byeoldam/howto.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="별담 사용 방법 · 입구 정하기부터 파일 옮기기까지">
+<meta property="og:description" content="별담 사용 방법: 그림 위치와 패턴으로 입구 정하기, 비밀방 들어가기, 사진·동영상·파일 가져오기, 복사와 이동, 파일 옮기기, 폰으로 복원, 비밀방 추가까지 화면과 함께 정리했어요.">
+<meta property="og:url" content="https://moruappstudio.github.io/byeoldam/howto.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="별담">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "별담 사용 방법", "url": "https://moruappstudio.github.io/byeoldam/howto.html", "inLanguage": "ko", "description": "별담 사용 방법: 그림 위치와 패턴으로 입구 정하기, 비밀방 들어가기, 사진·동영상·파일 가져오기, 복사와 이동, 파일 옮기기, 폰으로 복원, 비밀방 추가까지 화면과 함께 정리했어요."}</script>
+<style>
+.crumb{font-size:14px;color:var(--muted);margin-bottom:18px}.crumb a{text-decoration:none}
+.post-meta{color:var(--muted);font-size:14px;margin-top:12px}
+.legal h1{font-size:clamp(26px,4vw,38px)}
+.legal h2{font-size:22px;margin:44px 0 12px}
+.legal p{margin:12px 0}
+.legal li>ul,.legal li>ol{margin-top:6px}
+.legal blockquote{margin:18px 0;padding:12px 16px;border-left:3px solid var(--lamp);background:var(--panel);border-radius:0 10px 10px 0}
+.legal blockquote p{margin:0;color:var(--muted)}
+.answer{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.cta-box{margin-top:44px;border:1px solid var(--lamp);border-radius:18px;padding:22px;background:linear-gradient(180deg,#f5d18c10,var(--panel))}
+.cta-box h3{font-size:20px}.cta-box p{color:var(--muted)}
+.related{margin-top:40px}.related h3{font-size:19px;margin-bottom:10px}
+.related ul{list-style:none;padding:0;display:grid;gap:8px}
+.related a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--panel)}
+.related a:hover{border-color:var(--lamp)}
+.legal .postlist,.legal .related ul{padding-left:0}
+.banner{margin:22px 0 6px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:1200/574;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.legal article strong{color:var(--ink);background:linear-gradient(transparent 60%,#f5d18c3d 60%);padding:0 2px;border-radius:2px}
+.legal article strong.bd{color:var(--lamp);background:none;padding:0}
+.legal article .answer{position:relative;border:1px solid var(--lamp);background:linear-gradient(180deg,#f5d18c17,var(--panel));padding:18px 18px 18px 54px;font-size:17px}
+.legal article .answer::before{content:"💡";position:absolute;left:18px;top:17px;font-size:22px}
+.legal article h2{display:flex;gap:12px;align-items:center}
+.legal article h2::before{content:"";flex:none;width:6px;height:1.15em;border-radius:3px;background:var(--lamp)}
+.legal article>ol{list-style:none;counter-reset:step;padding-left:0;display:grid;gap:12px}
+.legal article>ol>li{counter-increment:step;position:relative;padding-left:42px}
+.legal article>ol>li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--lamp);color:#1a1405;font-weight:700;font-size:14px;display:grid;place-items:center}
+.legal article th{background:#f5d18c1c;color:var(--lamp)}
+.legal article tbody tr:nth-child(even) td{background:#ffffff06}
+.dl-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:36px 0;padding:18px 20px;border-radius:18px;border:1px solid #526b86;background:linear-gradient(135deg,#233b55,#142337)}
+.dl-card svg{width:56px;height:56px;border-radius:14px;flex:none}
+.dl-card div{flex:1;min-width:180px}
+.dl-card b{display:block;font-family:var(--display);font-size:19px}
+.dl-card span{color:var(--muted);font-size:14px}
+.dl-card .btn{min-height:44px}
+.postlist{list-style:none;padding:0;display:grid;gap:14px;margin-top:28px}
+.postlist a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
+.postlist a:hover{border-color:var(--lamp)}
+.postlist b{font-family:var(--display);font-size:19px;display:block;line-height:1.4}
+.postlist span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+</style>
+<style>
+.howto .wrap{max-width:1000px}
+.toc{margin:26px 0 8px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.toc ol{display:block;columns:2;column-gap:32px;margin:0;padding-left:1.4em}.toc li{margin:4px 0}.toc a{text-decoration:none}
+@media (max-width:560px){.toc ol{columns:1}}
+.step{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:40px;align-items:center;padding:40px 0;border-top:1px solid var(--line)}
+.step:has(> .txt:only-child){grid-template-columns:1fr}
+@media (max-width:780px){.step{grid-template-columns:1fr;gap:24px}}
+.step figure{margin:0}
+.legal .step h2{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:24px}
+.legal .step h2::before{display:none}
+.num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--lamp);color:#1a1405;display:grid;place-items:center;font-family:var(--body);font-size:16px;font-weight:700}
+.step ol,.step ul{padding-left:1.3em;display:grid;gap:8px}
+.step b{color:var(--ink)}
+.tip{margin-top:16px!important;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:15px}
+.phone.sm{width:min(250px,100%)}
+.dialog i.row{text-align:left;padding-left:4cqw}
+.dlg-btns{display:flex;justify-content:flex-end;gap:7cqw;font-size:3.8cqw;color:var(--muted);margin-top:4cqw}.dlg-btns .gold{color:var(--lamp);font-weight:600}
+.fb-head{display:flex;justify-content:space-between;align-items:center}
+.fb-ok{background:var(--lamp);color:#1a1405;border-radius:3cqw;padding:1.6cqw 3.4cqw;font-size:3.6cqw;font-weight:600}
+.fb-list{display:grid;gap:2.4cqw;margin-top:3cqw}
+.fb-row{display:flex;align-items:center;gap:3cqw;padding:3.2cqw;border-radius:3cqw;background:#162639;font-size:3.8cqw;border:1px solid transparent}
+.fb-row span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fb-row em{font-style:normal;color:var(--muted)}.fb-row.on{border-color:var(--lamp);background:#233548}.fb-row.on em{color:var(--lamp)}
+.thumb.sel{outline:2px solid var(--lamp)}.chk{display:block;font-size:3cqw;color:var(--lamp);margin-bottom:1.4cqw}.chk.muted{color:var(--muted)}
+.foot.three{grid-template-columns:1fr 1fr 1fr}.foot i.danger{color:#ff8a85}
+.player{position:absolute;inset:0;background:#000;display:flex;flex-direction:column;color:#fff}
+.pl-top{display:flex;justify-content:space-between;align-items:center;gap:2cqw;padding:6cqw 4cqw 3cqw;font-size:4.4cqw;background:linear-gradient(#000c,transparent)}
+.pl-top span{text-align:center;font-size:4cqw;font-weight:600;line-height:1.3}.pl-top small{display:block;font-weight:400;color:#bcc6d4;font-size:3cqw}
+.pl-video{height:58cqw;margin:auto 0;background:radial-gradient(40% 30% at 70% 30%,#fff7c9,transparent 60%),linear-gradient(180deg,#3c6e4a,#1f4a33)}
+.pl-bottom{padding:4cqw 5cqw 9cqw;background:linear-gradient(0deg,#000e,transparent)}
+.pl-bar{height:1.2cqw;background:#ffffff40;border-radius:1cqw;position:relative}.pl-bar i{position:absolute;left:0;top:0;bottom:0;width:12%;background:#fff;border-radius:1cqw}
+.pl-time{display:flex;justify-content:space-between;font-size:3.2cqw;margin:2.4cqw 0 5cqw}
+.pl-btns{display:flex;align-items:center;justify-content:space-between;font-size:5cqw}
+.pl-btns span{display:flex;flex-direction:column;align-items:center;gap:1cqw;line-height:1}.pl-btns small{font-size:2.6cqw}
+.pl-btns b{width:16cqw;height:16cqw;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-size:6cqw}
+.pl-btns .pl-speed{background:#fff;color:#000;font-size:3.2cqw;font-weight:700;border-radius:1.4cqw;padding:1.2cqw 2.2cqw}
+</style><link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>img.ico{display:block;width:34px;height:34px;border-radius:9px;flex:none}.dl-card img.ico{width:56px;height:56px;border-radius:14px}</style>
+</head>
+<body>
+
+
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html#top" aria-label="별담 처음으로">
+      <img class="ico" src="icon-192.png" alt="" width="34" height="34">
+      별담
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html#entrance">기능</a>
+      <a href="index.html#security">보안</a>
+      <a href="index.html#pricing">요금제</a>
+      <a href="index.html#faq">자주 묻는 질문</a>
+      <a href="howto.html">사용 방법</a>
+      <a href="blog.html">블로그</a>
+    </nav>
+    <a class="play" href="index.html#download">Google Play 출시 예정</a>
+  </div>
+</header>
+
+<main class="legal howto"><div class="wrap">
+<p class="crumb"><a href="index.html">별담</a> › 사용 방법</p>
+<h1>별담 사용 방법</h1>
+<p class="post-meta">입구 정하기부터 파일 옮기기까지 · 2026년 10월 기준</p>
+<p class="answer"><strong>한눈에 보기:</strong> ① 그림 속 한 곳을 누르고 ② 5×5 점을 5개 이상 이어 패턴을 그리면 비밀방이 열려요. 방 안에서 폴더를 만들고, 사진·동영상·파일을 <strong>복사</strong> 또는 <strong>이동</strong>으로 가져오면 폰 안에만 암호화되어 보관돼요.</p>
+
+<nav class="toc" aria-label="목차"><ol>
+<li><a href="#s1">처음 입구 정하기</a></li><li><a href="#s2">비밀방 들어가기</a></li><li><a href="#s3">폴더 만들기</a></li>
+<li><a href="#s4">사진·동영상 가져오기</a></li><li><a href="#s5">모든 파일 가져오기</a></li><li><a href="#s6">복사와 이동 고르기</a></li>
+<li><a href="#s7">사진·동영상 보기</a></li><li><a href="#s8">파일 옮기기</a></li><li><a href="#s9">폰으로 복원·삭제</a></li>
+<li><a href="#s10">비밀방 추가하기</a></li><li><a href="#s11">패턴·작업 비밀번호 바꾸기</a></li><li><a href="#s12">자동 잠금</a></li>
+<li><a href="#s13">일상방 채워 두기</a></li>
+</ol></nav>
+
+<section class="step" id="s1"><div class="txt">
+<h2><span class="num">1</span>처음 입구 정하기</h2>
+<ol>
+<li>처음 실행하면 안내 3장이 나와요. 마지막에 <b>비밀방 등록</b>을 누르세요.</li>
+<li><b>방 이름</b>을 정하고 <b>입구 설정</b>을 눌러요.</li>
+<li>그림 속 <b>하늘색 원</b> 15곳 중 한 곳을 누르세요. 창문, 문, 가로등, 별, 달이 있어요. 고른 곳은 <b>금색</b>으로 바뀌어요.</li>
+<li>아래 5×5 점을 <b>5개 이상</b> 이어서 패턴을 그려요.</li>
+<li><b>같은 위치</b>를 누르고 <b>같은 패턴</b>을 한 번 더 그리면 등록 끝이에요.</li>
+<li>마지막으로 복원·삭제 때 쓰는 <b>작업 비밀번호</b>(8자 이상)를 두 번 입력해요.</li>
+</ol>
+<p class="tip">💡 잘못 골랐다면 아래 <b>다시 입력하기</b>를 누르면 처음부터 정할 수 있어요. 위치와 패턴은 <b>잊으면 복구할 수 없으니</b> 꼭 기억해 두세요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><img class="bg" src="village.webp" alt="입구 등록 화면. 그림 속 15곳에 하늘색 원이 있고 한 곳이 금색으로 선택되어 있다."><svg class="ov" viewBox="0 0 941 1672" aria-hidden="true"><defs><linearGradient id="pn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071120"/><stop offset="1" stop-color="#050d19"/></linearGradient><radialGradient id="gl"><stop offset="0" stop-color="#ffe4a1" stop-opacity=".75"/><stop offset="1" stop-color="#ffe4a1" stop-opacity="0"/></radialGradient></defs><rect x="0" y="986" width="941" height="686" fill="url(#pn)"/><circle cx="228" cy="1042" r="10" fill="#5982be"/><circle cx="350" cy="1042" r="10" fill="#5982be"/><circle cx="471" cy="1042" r="10" fill="#5982be"/><circle cx="593" cy="1042" r="10" fill="#5982be"/><circle cx="715" cy="1042" r="10" fill="#5982be"/><circle cx="228" cy="1163" r="10" fill="#5982be"/><circle cx="350" cy="1163" r="10" fill="#5982be"/><circle cx="471" cy="1163" r="10" fill="#5982be"/><circle cx="593" cy="1163" r="10" fill="#5982be"/><circle cx="715" cy="1163" r="10" fill="#5982be"/><circle cx="228" cy="1285" r="10" fill="#5982be"/><circle cx="350" cy="1285" r="10" fill="#5982be"/><circle cx="471" cy="1285" r="10" fill="#5982be"/><circle cx="593" cy="1285" r="10" fill="#5982be"/><circle cx="715" cy="1285" r="10" fill="#5982be"/><circle cx="228" cy="1407" r="10" fill="#5982be"/><circle cx="350" cy="1407" r="10" fill="#5982be"/><circle cx="471" cy="1407" r="10" fill="#5982be"/><circle cx="593" cy="1407" r="10" fill="#5982be"/><circle cx="715" cy="1407" r="10" fill="#5982be"/><circle cx="228" cy="1528" r="10" fill="#5982be"/><circle cx="350" cy="1528" r="10" fill="#5982be"/><circle cx="471" cy="1528" r="10" fill="#5982be"/><circle cx="593" cy="1528" r="10" fill="#5982be"/><circle cx="715" cy="1528" r="10" fill="#5982be"/><circle cx="139" cy="505" r="30" fill="none" stroke="#68788b" stroke-width="5"/><path d="M129 495L149 515M129 515L149 495" stroke="#68788b" stroke-width="5"/><circle cx="154" cy="667" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="408" cy="722" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="498" cy="776" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="712" cy="771" r="30" fill="none" stroke="#f5d18c" stroke-width="9"/><circle cx="712" cy="771" r="37" fill="none" stroke="#f5d18c" stroke-width="5"/><circle cx="808" cy="811" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="63" cy="594" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="343" cy="697" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="866" cy="779" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="139" cy="115" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="300" cy="207" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="432" cy="119" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="628" cy="171" r="30" fill="none" stroke="#68788b" stroke-width="5"/><path d="M618 161L638 181M618 181L638 161" stroke="#68788b" stroke-width="5"/><circle cx="554" cy="274" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/><circle cx="774" cy="177" r="30" fill="none" stroke="#8dcae8" stroke-width="5"/></svg><div class="setup-tip">1/2 · 그림 속 위치를 고르고<br>점을 5개 이상 연결하세요</div></div></div><figcaption class="caption">입구 등록 화면</figcaption></figure>
+</section>
+
+<section class="step" id="s2"><div class="txt">
+<h2><span class="num">2</span>비밀방 들어가기</h2>
+<ol>
+<li>잠금 화면(밤마을 그림)에서 등록한 <b>그림 위치를 먼저 누르세요.</b> 누르면 살짝 빛나요.</li>
+<li>바로 아래 점에 <b>패턴</b>을 그리면 비밀방이 열려요.</li>
+</ol>
+<p class="tip">💡 잠금 화면에는 입구 위치가 표시되지 않아요. 그림을 누르지 않고 패턴만 그리면 “틀렸습니다”가 나와요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><img class="bg" src="village.webp" alt="잠금 화면. 창문 한 곳이 빛나고 금색 패턴이 그려져 있다."><svg class="ov" viewBox="0 0 941 1672" aria-hidden="true"><defs><linearGradient id="pn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071120"/><stop offset="1" stop-color="#050d19"/></linearGradient><radialGradient id="gl"><stop offset="0" stop-color="#ffe4a1" stop-opacity=".75"/><stop offset="1" stop-color="#ffe4a1" stop-opacity="0"/></radialGradient></defs><rect x="0" y="986" width="941" height="686" fill="url(#pn)"/><circle cx="228" cy="1042" r="10" fill="#5982be"/><circle cx="350" cy="1042" r="10" fill="#5982be"/><circle cx="471" cy="1042" r="10" fill="#5982be"/><circle cx="593" cy="1042" r="10" fill="#5982be"/><circle cx="715" cy="1042" r="10" fill="#5982be"/><circle cx="228" cy="1163" r="10" fill="#5982be"/><circle cx="350" cy="1163" r="10" fill="#5982be"/><circle cx="471" cy="1163" r="10" fill="#5982be"/><circle cx="593" cy="1163" r="10" fill="#5982be"/><circle cx="715" cy="1163" r="10" fill="#5982be"/><circle cx="228" cy="1285" r="10" fill="#5982be"/><circle cx="350" cy="1285" r="10" fill="#5982be"/><circle cx="471" cy="1285" r="10" fill="#5982be"/><circle cx="593" cy="1285" r="10" fill="#5982be"/><circle cx="715" cy="1285" r="10" fill="#5982be"/><circle cx="228" cy="1407" r="10" fill="#5982be"/><circle cx="350" cy="1407" r="10" fill="#5982be"/><circle cx="471" cy="1407" r="10" fill="#5982be"/><circle cx="593" cy="1407" r="10" fill="#5982be"/><circle cx="715" cy="1407" r="10" fill="#5982be"/><circle cx="228" cy="1528" r="10" fill="#5982be"/><circle cx="350" cy="1528" r="10" fill="#5982be"/><circle cx="471" cy="1528" r="10" fill="#5982be"/><circle cx="593" cy="1528" r="10" fill="#5982be"/><circle cx="715" cy="1528" r="10" fill="#5982be"/><circle class="glow" cx="343" cy="697" r="80" fill="url(#gl)"/><polyline class="pat" points="228,1042 350,1042 471,1042 471,1163 471,1285 350,1285 228,1285 228,1407 228,1528 350,1528 471,1528" fill="none" stroke="#f5d18c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="228" cy="1042" r="20" fill="#f5d18c"/><circle cx="350" cy="1042" r="20" fill="#f5d18c"/><circle cx="471" cy="1042" r="20" fill="#f5d18c"/><circle cx="471" cy="1163" r="20" fill="#f5d18c"/><circle cx="471" cy="1285" r="20" fill="#f5d18c"/><circle cx="350" cy="1285" r="20" fill="#f5d18c"/><circle cx="228" cy="1285" r="20" fill="#f5d18c"/><circle cx="228" cy="1407" r="20" fill="#f5d18c"/><circle cx="228" cy="1528" r="20" fill="#f5d18c"/><circle cx="350" cy="1528" r="20" fill="#f5d18c"/><circle cx="471" cy="1528" r="20" fill="#f5d18c"/></svg></div></div><figcaption class="caption">잠금 화면 · 위치 누르고 패턴 그리기</figcaption></figure>
+</section>
+
+<section class="step" id="s3"><div class="txt">
+<h2><span class="num">3</span>폴더 만들기</h2>
+<ol>
+<li>비밀방 첫 화면에서 <b>＋ 새 폴더</b>를 눌러요.</li>
+<li>이름을 적고 <b>저장</b>하면 폴더 카드가 생겨요.</li>
+<li>폴더 안에서 <b>이름 변경</b>도 할 수 있어요.</li>
+</ol>
+<p class="tip">💡 화면 위쪽에 지금 쓰는 용량이 보여요 (무료는 1GB까지).</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" role="img" aria-label="비밀방 첫 화면. 폴더 카드 네 장.">
+<h4>비밀방</h4><div class="sub">사진 · 영상 · 파일 보관</div><div class="meta">폴더 4개 · 파일 128개<br>무료 · 0.4GB / 1GB 사용</div>
+<div class="newf">＋ 새 폴더</div>
+<div class="fgrid"><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>가족</b><span>54개 파일</span></div><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>여행 2026</b><span>41개 파일</span></div><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>서류</b><span>19개 파일</span></div><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>영상</b><span>14개 파일</span></div></div>
+<div class="foot"><i>설정</i><i>잠그고 나가기</i></div></div></div></div><figcaption class="caption">비밀방 첫 화면</figcaption></figure>
+</section>
+
+<section class="step" id="s4"><div class="txt">
+<h2><span class="num">4</span>사진·동영상 가져오기</h2>
+<ol>
+<li>폴더 안에서 <b>+ 파일 추가</b> → <b>사진 · 동영상</b>을 눌러요.</li>
+<li><b>사진만 보기 / 동영상만 보기 / 사진 + 동영상</b> 중에서 골라요.</li>
+<li>갤러리가 열리면 가져올 사진·영상을 <b>여러 개 탭</b>하고 완료를 눌러요.</li>
+</ol>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" aria-hidden="true"><h4>여행 2026</h4><div class="tools"><i>크게 보기 ▾</i><i>최근 추가순 ▾</i></div>
+<div class="thumbs"><div class="thumb"><div class="ph p1"></div><b>IMG_2041.jpg</b><span>3.2 MB</span></div><div class="thumb"><div class="ph p2"></div><b>IMG_2038.jpg</b><span>2.8 MB</span></div></div></div>
+<div class="dim"></div><div class="dialog" role="img" aria-label="무엇을 가져올까요? 창. 사진만 보기, 동영상만 보기, 사진 + 동영상 세 가지 선택지."><h5>무엇을 가져올까요?</h5><i class="row">사진만 보기</i><i class="row">동영상만 보기</i><i class="row on">사진 + 동영상</i><div class="cancel">취소</div></div></div></div><figcaption class="caption">가져올 종류 고르기</figcaption></figure>
+</section>
+
+<section class="step" id="s5"><div class="txt">
+<h2><span class="num">5</span>모든 파일 가져오기 (문서 등)</h2>
+<ol>
+<li><b>+ 파일 추가</b> → <b>모든 파일</b>을 눌러요.</li>
+<li>처음 한 번만 <b>파일이 있는 폴더를 골라 허용</b>해요. 다음부터는 바로 목록이 열려요.</li>
+<li>별담 안 목록에서 파일을 <b>탭하면 ✓ 선택</b>, 다시 탭하면 해제돼요. 폴더를 오가며 여러 곳의 파일을 함께 고를 수 있어요.</li>
+<li>위쪽 <b>확인 (N)</b>을 눌러요.</li>
+</ol>
+<p class="tip">💡 Android 정책상 ‘Download’ 폴더 자체는 고를 수 없어요. 그 안의 파일은 <b>기본 파일 화면</b>에서 길게 눌러 여러 개 고르세요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" role="img" aria-label="파일 선택 화면. 파일 두 개가 선택되어 있다.">
+<div class="fb-head"><h4>파일 선택</h4><span class="fb-ok">확인 (2)</span></div><div class="meta">Documents › 계약서</div>
+<div class="fb-list"><div class="fb-row">📁<span>2025</span><em>›</em></div><div class="fb-row on">📄<span>임대차계약서.pdf</span><em>✓</em></div><div class="fb-row on">📄<span>사업자등록증.pdf</span><em>✓</em></div><div class="fb-row">📄<span>견적서.xlsx</span><em>○</em></div></div>
+</div></div></div><figcaption class="caption">앱 안 파일 목록</figcaption></figure>
+</section>
+
+<section class="step" id="s6"><div class="txt">
+<h2><span class="num">6</span>복사와 이동 고르기</h2>
+<ol>
+<li>고른 뒤 <b>“복사할까요, 이동할까요?”</b> 창이 나와요.</li>
+<li><b>복사</b>: 갤러리 원본은 그대로 두고 비밀방에 한 벌 더 보관해요.</li>
+<li><b>이동</b>: 암호화 저장과 내용 비교가 끝나면 Android 승인 창이 떠요. <b>허용</b>을 누르면 갤러리 원본이 휴지통 없이 지워져요.</li>
+</ol>
+<p class="tip">💡 클라우드 백업(구글 포토 등)에 있는 사본은 따로 지워야 해요. 저장에 실패한 파일은 원본을 지우지 않아요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" aria-hidden="true"><h4>여행 2026</h4></div><div class="dim"></div>
+<div class="dialog" role="img" aria-label="복사할까요, 이동할까요? 창."><h5>복사할까요, 이동할까요?</h5><p>3개 파일을 비밀방에 암호화하여 저장합니다.</p><i>복사 · 갤러리 원본 그대로 남기기</i><i class="on">이동 · 저장 후 원본 영구 삭제</i><div class="cancel">취소</div></div></div></div><figcaption class="caption">복사·이동 선택</figcaption></figure>
+</section>
+
+<section class="step" id="s7"><div class="txt">
+<h2><span class="num">7</span>사진·동영상 보기</h2>
+<ol>
+<li>폴더 위쪽에서 보기 크기를 골라요: <b>크게 보기 · 작게 보기 · 더 작게 보기 · 이름만 보기</b>.</li><li>그 아래 <b>🙈 미리보지 않기</b> 버튼을 누르면 사진·영상 칸이 검게 가려지고, 한 번 더 누르면 다시 보여요.</li>
+<li>파일을 누르면 크게 열리고, <b>좌우로 밀면</b> 사진과 동영상이 차례로 넘어가요.</li>
+<li>동영상: 가운데 <b>큰 ▶</b>로 재생, 화면 <b>왼쪽·오른쪽을 누르면 10초 이동</b>, 아래 버튼으로 <b>전체화면 · 가로로 · 배속(0.5~2배) · 소리/무음</b>.</li>
+<li>화면을 한 번 톡 치면 버튼이 숨고, 다시 치면 나타나요.</li>
+</ol>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="player" role="img" aria-label="동영상 재생 화면. 큰 재생 버튼과 아래 버튼 줄.">
+<div class="pl-top">✕<span>산책.mp4<small>3 / 12</small></span>복원</div>
+<div class="pl-video"></div>
+<div class="pl-bottom"><div class="pl-bar"><i></i></div><div class="pl-time"><span>00:12</span><span>01:48</span></div>
+<div class="pl-btns"><span>⛶<small>전체화면</small></span><span>↻<small>가로로</small></span><b>▶</b><span class="pl-speed">1.0x</span><span>🔊<small>소리</small></span></div></div>
+</div></div></div><figcaption class="caption">동영상 재생 화면</figcaption></figure>
+</section>
+
+<section class="step" id="s8"><div class="txt">
+<h2><span class="num">8</span>파일 옮기기 (다른 폴더·다른 방)</h2>
+<ol>
+<li>폴더 안에서 <b>선택</b>을 누르고 옮길 파일을 탭해요. <b>전체 선택 / 해제</b>도 있어요.</li>
+<li>아래 <b>이동</b>을 누르고 옮길 곳을 골라요.</li>
+<li><b>같은 비밀방의 다른 폴더</b>: 도착 폴더를 고르거나 새 폴더를 만들면 끝이에요.</li>
+<li><b>다른 비밀방</b> (이용권): 작업 비밀번호 → 도착할 방의 <b>그림 위치 + 패턴</b> → 도착 폴더 순서로 진행해요. 도착 방에 안전하게 저장된 것을 확인한 뒤에 원래 방에서 지워요.</li>
+</ol>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" aria-hidden="true"><h4>여행 2026</h4><div class="meta">2 / 41개 선택</div>
+<div class="thumbs"><div class="thumb sel"><span class="chk">✓ 선택됨</span><div class="ph p1"></div><b>IMG_2041.jpg</b></div><div class="thumb"><span class="chk muted">○ 선택</span><div class="ph p2"></div><b>IMG_2038.jpg</b></div></div></div>
+<div class="dim"></div><div class="dialog" role="img" aria-label="이동할 위치 창. 같은 비밀방의 다른 폴더, 다른 비밀방."><h5>이동할 위치</h5><i class="row on">같은 비밀방의 다른 폴더</i><i class="row">다른 비밀방</i><div class="cancel">취소</div></div></div></div><figcaption class="caption">선택 → 이동</figcaption></figure>
+</section>
+
+<section class="step" id="s9"><div class="txt">
+<h2><span class="num">9</span>폰으로 복원·삭제</h2>
+<ol>
+<li><b>폰으로 복원</b>: 파일을 열고 위쪽 <b>복원</b>을 누르거나, 선택 모드에서 <b>폰으로 복원</b>을 눌러요. 작업 비밀번호를 확인한 뒤 저장 위치를 고르면 암호화가 풀린 일반 파일로 저장돼요. 비밀방 보관본은 그대로 남아요.</li>
+<li><b>삭제</b>: 선택 모드에서 빨간 <b>삭제</b> → 경고 확인 → 작업 비밀번호. 휴지통 없이 지워지고 되돌릴 수 없어요.</li>
+</ol>
+<p class="tip">💡 앱을 지우거나 폰을 바꾸기 전에는 꼭 필요한 파일을 폰으로 복원해 두세요. 별담은 서버에 백업하지 않아요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" aria-hidden="true"><h4>여행 2026</h4><div class="meta">2 / 41개 선택</div>
+<div class="thumbs"><div class="thumb sel"><span class="chk">✓ 선택됨</span><div class="ph p1"></div><b>IMG_2041.jpg</b></div><div class="thumb sel"><span class="chk">✓ 선택됨</span><div class="ph p2"></div><b>IMG_2038.jpg</b></div></div>
+<div class="foot three"><i>이동</i><i>폰으로 복원</i><i class="danger">🗑 삭제</i></div></div></div></div><figcaption class="caption">선택 모드 아래 버튼</figcaption></figure>
+</section>
+
+<section class="step" id="s10"><div class="txt">
+<h2><span class="num">10</span>비밀방 추가하기 (이용권)</h2>
+<ol>
+<li>비밀방 → <b>설정</b> → <b>새 비밀방 만들기</b>를 눌러요.</li>
+<li>방 이름을 정하고, 그림에서 <b>다른 위치</b>를 골라 패턴을 두 번 그려요. 이미 쓰는 위치는 <b>회색 ×</b>로 보여서 고를 수 없어요.</li>
+</ol>
+<p class="tip">💡 <b>무료는 비밀방 1개</b>예요. 두 번째 방부터는 이용권이 필요하고, 무료 상태에서 누르면 안내 창이 떠요. 이용권이 끝나도 이미 만든 방은 그대로 쓸 수 있어요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" aria-hidden="true"><h4>설정</h4><div class="meta">이 방의 설정</div></div><div class="dim"></div>
+<div class="dialog" role="img" aria-label="비밀방 추가는 이용권 전용이에요 안내 창."><h5>비밀방 추가는 이용권 전용이에요</h5><p>무료로는 비밀방을 1개 쓸 수 있어요. 이용권이 있으면 그림 속 다른 위치마다 비밀방을 더 만들 수 있어요 (최대 15개).</p><div class="dlg-btns"><span>닫기</span><span class="gold">이용권 보기</span></div></div></div></div><figcaption class="caption">무료에서 방 추가를 누르면</figcaption></figure>
+</section>
+
+<section class="step" id="s11"><div class="txt">
+<h2><span class="num">11</span>패턴·작업 비밀번호 바꾸기</h2>
+<ol>
+<li><b>입장 패턴</b>: 설정 → <b>이 방 입장 패턴 변경</b> → 새 패턴을 두 번 그려요. 그림 위치와 파일은 그대로예요.</li>
+<li><b>작업 비밀번호</b>: 설정 → <b>공통 작업 비밀번호 변경</b> → 지금 비밀번호 확인 → 새 비밀번호 두 번. 모든 비밀방에 함께 적용돼요.</li>
+</ol>
+</div></section>
+
+<section class="step" id="s12"><div class="txt">
+<h2><span class="num">12</span>자동 잠금</h2>
+<p>아래 상황에서는 바로 잠기고, 다시 들어오려면 그림 위치와 패턴이 필요해요.</p>
+<ul>
+<li>홈으로 나가거나 다른 앱으로 넘어갈 때</li>
+<li>화면을 끌 때</li>
+<li>분할 화면·팝업 창에서 <b>옆 앱을 누를 때</b></li>
+<li>광고나 링크를 눌러 브라우저로 넘어갈 때</li>
+</ul>
+<p class="tip">💡 별담이 직접 연 화면(파일 고르기, 저장 위치 고르기, 삭제 승인)에 있는 동안은 최대 5분까지 잠기지 않아요. 최근 앱 화면과 스크린샷에도 내용이 보이지 않아요.</p>
+</div></section>
+
+<section class="step" id="s13"><div class="txt">
+<h2><span class="num">13</span>일상방 채워 두기</h2>
+<p>그림 위치를 누른 뒤 <b>등록하지 않은 패턴</b>을 그리면 <b>일상방</b>이 열려요. 일상방도 비밀방처럼 사진·동영상·파일을 넣고 볼 수 있어요.</p>
+<ol>
+<li>그림 위치를 누르고, 비밀방 패턴이 아닌 아무 패턴이나 그려 일상방에 들어가요.</li>
+<li>기본 <b>사진</b> 폴더나 새 폴더에서 <b>파일 추가</b>를 눌러 풍경·음식·여행 사진 같은 <b>평범한 사진</b>을 넣어 두세요.</li>
+<li>이렇게 채워 두면 누가 별담을 열어 봐도 <b>평범한 사진 앨범</b>처럼 보여요.</li>
+</ol>
+<p class="tip">💡 일상방은 등록하지 않은 패턴이면 누구나 열 수 있는 방이에요. <b>지켜야 할 사진은 꼭 비밀방에</b> 넣으세요. 일상방 파일도 저장 공간(무료 1GB)에 함께 계산되고, 비밀방 개수에는 들어가지 않아요. 입구·패턴 설정과 방 추가 메뉴는 비밀방 설정에만 있어요.</p>
+</div>
+<figure><div class="phone sm"><div class="screen"><div class="app" role="img" aria-label="일상방 첫 화면. 사진, 음식, 여행 폴더 카드."><h4>일상</h4><div class="sub">사진 · 영상 · 파일 보관</div><div class="meta">폴더 3개 · 파일 62개</div><div class="newf">＋ 새 폴더</div><div class="fgrid"><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>사진</b><span>31개 파일</span></div><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>음식</b><span>18개 파일</span></div><div class="fcard"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#B99B64" d="M2,5Q2,3 4,3L9,3L12,6L20,6Q22,6 22,8L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path fill="#F5D18C" d="M2,9L22,9L22,19Q22,21 20,21L4,21Q2,21 2,19Z"/><path stroke="#FFE9B7" stroke-width="1" d="M4,10L20,10"/></svg><b>여행</b><span>13개 파일</span></div></div><div class="foot"><i>설정</i><i>잠그고 나가기</i></div></div></div></div><figcaption class="caption">일상방 · 평범한 사진 앨범처럼</figcaption></figure>
+</section>
+
+<p class="post-meta" style="margin-top:40px">화면 그림은 실제 앱 화면을 바탕으로 다시 그린 예시로, 기기에 따라 조금 다를 수 있어요. 궁금한 점은 moruappstudio@gmail.com 으로 보내 주세요.</p>
+</div></main>
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="index.html#top" style="font-size:19px">별담</a>
+      <p style="margin-top:10px">그림 속 비밀 입구와 패턴으로 여는 Android 사진 보관함.</p>
+    </div>
+    <div>
+      <h6>둘러보기</h6>
+      <ul><li><a href="index.html#entrance">기능</a></li><li><a href="index.html#security">보안</a></li><li><a href="index.html#pricing">요금제</a></li><li><a href="index.html#faq">자주 묻는 질문</a></li><li><a href="howto.html">사용 방법</a></li><li><a href="blog.html">블로그</a></li></ul>
+    </div>
+    <div>
+      <h6>정책</h6>
+      <ul><li><a href="privacy.html">개인정보처리방침</a></li><li><a href="terms.html">이용약관</a></li><li>moruappstudio@gmail.com</li></ul>
+    </div>
+    <p class="copyright">© 2026 모루앱스 · 화면 이미지는 실제 앱 화면을 바탕으로 다시 그린 예시입니다.</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
